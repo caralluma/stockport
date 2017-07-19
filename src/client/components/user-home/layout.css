@@ -1,0 +1,33 @@
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*html, body {
+    font-size: 16px;
+    line-height: 1.5rem;
+    height: 100%;
+    min-height: 100%;
+}*/
+
+.header {
+    /*padding: 1rem;*/
+    background: #111;
+    height: 4rem;
+    color: #fff;
+}
+
+.sidebar {
+    /*
+    padding: 1rem;
+    */
+    background: #ECF0F1;
+    width: 9rem;
+    color: #fff;
+}
+
+.content {
+    padding: 1rem;
+/*    background: #ECF0F1;*/
+}

@@ -1,0 +1,10 @@
+.appBar {
+  /* background-color: #800080;*/
+  background-color: #c03645;
+}
+.appBar svg {
+  width: 3.4rem;
+  height: 4rem;
+  margin-right: 1rem;
+  fill: #fff;
+}

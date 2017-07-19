@@ -1,0 +1,11 @@
+@import "react-toolbox/lib/button/theme.css";
+
+button {
+    color: #c03645;
+}
+
+.theme--squared--x_FgjJBb {
+    border-radius: 2px;
+    min-width: 0px;
+    padding: 0 12px
+}

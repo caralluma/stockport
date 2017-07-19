@@ -1,0 +1,90 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Button } from 'react-toolbox/lib/button';
+import NewTaskDialog from './NewTaskDialog/index';
+import AppHeader from '../AppHeader/index';
+import AddButton from '../AddButton/index';
+import ItemList from './ProductList/index';
+
+class Main extends Component {
+  static propTypes = {
+  content: PropTypes.string.isRequired,
+  error: PropTypes.object,
+  onAddButtonClick: PropTypes.func.isRequired,
+  onAddTask: PropTypes.func.isRequired,
+  onChecked: PropTypes.func.isRequired,
+  onClear: PropTypes.func.isRequired,
+  onCloseDialog: PropTypes.func.isRequired,
+  showTaskDialog: PropTypes.bool.isRequired,
+  tasks: PropTypes.array.isRequired
+};
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      tasks: []
+    };
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.content === 'spinner' && nextProps.content === 'content') {
+      this.setState({ tasks: nextProps.tasks });
+    }
+  }
+
+  handleAdd = (task) => {
+    const newTasks = this.state.tasks.slice();
+    newTasks.push(task);
+    this.setState({
+      tasks: newTasks
+    });
+    this.props.onAddTask(task);
+  }
+
+  handleClear = () => {
+    const newTasks = this.state.tasks.slice().filter(task => !task.done);
+    this.setState({
+      tasks: newTasks
+    });
+    this.props.onClear();
+  }
+
+  handleChange = (index, check) => {
+    const newTasks = this.state.tasks.slice();
+    newTasks[index].done = check;
+    this.setState({
+      tasks: newTasks
+    });
+    this.props.onChecked(index, check);
+  }
+
+
+  render () {
+    const { content, error } = this.props;
+    return (
+      <div>
+        <AppHeader >
+          Retail Supplier Management
+        </AppHeader>
+        <section style={{ padding: 20 }}>
+          <AddButton label='Add Task' icon="add" primary raised onClick={this.props.onAddButtonClick()} />
+          &nbsp;
+          <Button label='Delete Done' icon="delete" onClick={() => this.handleClear()} />
+          <ItemList
+            tasks={this.state.tasks}
+            content={content}
+            onChecked={(index, check) => this.handleChange(index, check)}
+            error={error}
+          />
+          <NewTaskDialog
+            showTaskDialog={this.props.showTaskDialog}
+            onAddTask={(task) => this.handleAdd(task)}
+            onCloseDialog={this.props.onCloseDialog}
+          />
+        </section>
+      </div>
+    );
+  }
+}
+
+export default Main;
